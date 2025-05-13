@@ -3,4 +3,6 @@ Hi Readers,
 My name is Gibran Fahad.
 I am above to get graduated with a degree in Master of CS.
 
+I am currently trying to explore more on Gen AI and how to incorporate it in my DevOps learning.
+
 DevOps Engineer passionate about scalable, secure systems. Bridging development & ops to deliver efficient, high-impact solutions.
