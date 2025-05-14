@@ -1,17 +1,30 @@
 ## 🔐 Task 3: Configure Remote URL with PAT and Push
 
-1. **Add remote URL** with embedded Personal Access Token (PAT):
+### 1. Add remote URL with embedded Personal Access Token (PAT)
 
-    git remote add origin https://<your-username>:<your-PAT>@github.com/<your-username>/90DaysOfDevOps.git
+```bash
+git remote add origin https://<your-username>:<your-PAT>@github.com/<your-username>/90DaysOfDevOps.git
+```
 
 > If `origin` already exists, use:
 
-    git remote set-url origin https://<your-username>:<your-PAT>@github.com/<your-username>/90DaysOfDevOps.git
+```bash
+git remote set-url origin https://<your-username>:<your-PAT>@github.com/<your-username>/90DaysOfDevOps.git
+```
 
-2. **Push** to GitHub:
+---
 
-    git push -u origin main
+### 2. Push to GitHub
 
-3. **Pull** to verify sync:
+```bash
+git push -u origin main
+```
 
-    git pull origin main
+---
+
+### 3. Pull to verify sync
+
+```bash
+git pull origin main
+```
+

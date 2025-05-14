@@ -1,5 +1,8 @@
 ## 📜 Task 4: View Commit History
 
-Check commit log:
+### Check commit log
 
-    git log
+```bash
+git log
+```
+
