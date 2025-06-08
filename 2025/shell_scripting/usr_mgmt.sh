@@ -1,26 +1,35 @@
 #!/bin/bash
 
-LOGFILE="all_user.log"
-exec > >(tee -a $LOGFILE) 2>&1
-
-timestamp=$(date '+%Y-%m-%d_%H-%M-%S')
+LOGFILE="all_user.json"
 
 log_info() {
-    echo "[INFO] $1 ($timestamp)"
+    timestamp=$(date -u '+%Y-%m-%dT%H:%M:%S')
+    log="{\"level\": \"INFO\", \"message\": \"$1\", \"timestamp\": \"$timestamp\"}"
+    echo "$log" | tee -a "$LOGFILE"
 }
+
 log_error() {
-    echo "[ERROR] $1 ($timestamp)"
+    timestamp=$(date -u '+%Y-%m-%dT%H:%M:%S')
+    log="{\"level\": \"ERROR\", \"message\": \"$1\", \"timestamp\": \"$timestamp\"}" >> "$LOGFILE"
+    echo "$log" | tee -a "$LOGFILE"
 }
-log_warning(){
-    echo "[WARNING] $1 ($timestamp)"
+
+log_warning() {
+    timestamp=$(date -u '+%Y-%m-%dT%H:%M:%S')
+    log="{\"level\": \"WARNING\", \"message\": \"$1\", \"timestamp\": \"$timestamp\"}" >> "$LOGFILE"
+    echo "$log" | tee -a "$LOGFILE"
 }
-log_success(){
-    echo "[SUCCESS] $1 ($timestamp)"
+
+log_success() {
+    timestamp=$(date -u '+%Y-%m-%dT%H:%M:%S')
+    log="{\"level\": \"SUCCESS\", \"message\": \"$1\", \"timestamp\": \"$timestamp\"}" >> "$LOGFILE"
+    echo "$log" | tee -a "$LOGFILE"
 }
+
 
 validator(){
     if [ $? -eq 0 ]; then
-      log_success "$1 operation successfully...."
+      log_success "$1 operation successful...."
     else
       log_error "$1 operation failed...."
     fi
@@ -37,33 +46,25 @@ echo "  -h, --help       Display this help message and usage information."
 echo "Please enter you option here: "
 read option
 
-if [ "$option" = "-c" ] || [ "$option" = "--create" ] || [ "$option" = "-r" ] || [ "$option" = "--reset" ]; then
+if [[ "$option" =~ ^(-c|--create|-r|--reset)$ ]]; then
     echo "Please provide username"
     read usrname
     echo "Please provide password"
     read passwd
-
     if [ -z "$usrname" ] || [ -z "$passwd" ]; then
         log_error "Username or password missing."
         exit 1
     fi
-
-elif [ "$option" = "-d" ] || [ "$option" = "--delete" ]; then
+elif [[ "$option" =~ ^(-d|--delete)$ ]]; then
     echo "Please provide username"
     read usrname
-
     if [ -z "$usrname" ]; then
         log_error "Username missing."
         exit 1
     fi
-
 fi
 
 
-if [ -z "$option" ]; then
-    log_error "Option is not provided...."
-    exit 1
-fi
 
 case $option in
   -c|--create)
